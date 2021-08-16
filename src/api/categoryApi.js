@@ -13,9 +13,9 @@ const categoryApi = {
     const url = "/categories";
     return axiosClient.post(url, data);
   },
-  update(date) {
+  update(data) {
     const url = `/categories/${data.id}`;
-    return axiosClient.patch(url, date);
+    return axiosClient.patch(url, data);
   },
   remove(id) {
     const url = `/categories/${id}`;

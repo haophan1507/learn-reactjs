@@ -5,16 +5,29 @@ import { Controller } from "react-hook-form";
 
 function InputField(props) {
   const { form, name, label, disabled } = props;
+  const { errors } = form;
+  const hasError = errors[name];
 
   return (
     <Controller
       name={name}
       control={form.control}
-      as={TextField}
-      fullWidth
-      label={label}
-      disabled={disabled}
-      />
+      render={({ onChange, onBlur, value, name }) => (
+        <TextField
+          margin="normal"
+          variant="outlined"
+          fullWidth
+          label={label}
+          disabled={disabled}
+          error={!!hasError}
+          helperText={errors[name]?.message}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+      )}
+    />
   );
 }
 
