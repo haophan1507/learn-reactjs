@@ -42,11 +42,11 @@ const useStyles = makeStyles((theme) => ({
 const MODE = {
   LOGIN: 'login',
   REGISTER: 'register',
-}
+};
 
 export default function Header() {
   const dispatch = useDispatch();
-  const loggedInUser = useSelector(state => state.user.current);
+  const loggedInUser = useSelector((state) => state.user.current);
   const cartItemsCount = useSelector(cartItemsCountSelector);
   const isLoggedIn = !!loggedInUser.id;
   const [open, setOpen] = useState(false);
@@ -64,21 +64,20 @@ export default function Header() {
 
   const handleUserClick = (e) => {
     setAnchorEl(e.currentTarget);
-  }
+  };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
-  }
+  };
 
   const handleLogoutClick = () => {
     dispatch(logout());
     setAnchorEl(null);
-  }
+  };
 
   const handleCartClick = () => {
     history.push('/cart');
-  }
-
+  };
 
   const classes = useStyles();
 
@@ -89,7 +88,9 @@ export default function Header() {
           <CodeIcon className={classes.menuButton} />
 
           <Typography variant="h6" className={classes.title}>
-            <Link to="/" className={classes.link}>EZ SHOP</Link>
+            <Link to="/" className={classes.link}>
+              EZ SHOP
+            </Link>
           </Typography>
 
           <NavLink to="/todos" className={classes.link}>
@@ -99,13 +100,21 @@ export default function Header() {
           <NavLink to="/albums" className={classes.link}>
             <Button color="inherit">ALBUMS</Button>
           </NavLink>
-          {!isLoggedIn && (<Button color="inherit" onClick={handleClickOpen}>LOGIN</Button>)}
-          <IconButton color='inherit' onClick={handleCartClick}>
-            <Badge badgeContent={cartItemsCount} color='secondary'>
+          {!isLoggedIn && (
+            <Button color="inherit" onClick={handleClickOpen}>
+              LOGIN
+            </Button>
+          )}
+          <IconButton color="inherit" onClick={handleCartClick}>
+            <Badge badgeContent={cartItemsCount} color="secondary">
               <ShoppingCart />
             </Badge>
           </IconButton>
-          {isLoggedIn && (<IconButton color="inherit" onClick={handleUserClick}><AccountCircle /></IconButton>)}
+          {isLoggedIn && (
+            <IconButton color="inherit" onClick={handleUserClick}>
+              <AccountCircle />
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
 
@@ -128,36 +137,44 @@ export default function Header() {
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
       </Menu>
 
-      <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <IconButton className={classes.closeButton} onClick={handleClose} >
+      <Dialog
+        disableBackdropClick
+        disableEscapeKeyDown
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <IconButton className={classes.closeButton} onClick={handleClose}>
           <Close />
         </IconButton>
         <DialogContent>
-          {
-            mode === MODE.REGISTER && (
-              <>
-                <Register closeDialog={handleClose} />
-                <Box textAlign="center">
-                  <Button color="primary" onClick={() => setMode(MODE.LOGIN)}>
-                    Already have an account. Login here
-                  </Button>
-                </Box>
-              </>
-            )
-          }
+          {mode === MODE.REGISTER && (
+            <>
+              <Register closeDialog={handleClose} />
+              <Box textAlign="center">
+                <Button
+                  color="primary"
+                  onClick={() => setMode(MODE.LOGIN)}
+                >
+                  Already have an account. Login here
+                </Button>
+              </Box>
+            </>
+          )}
 
-          {
-            mode === MODE.LOGIN && (
-              <>
-                <Login closeDialog={handleClose} />
-                <Box textAlign="center">
-                  <Button color="primary" onClick={() => setMode(MODE.REGISTER)}>
-                    Don't have an account. Register here.
-                  </Button>
-                </Box>
-              </>
-            )
-          }
+          {mode === MODE.LOGIN && (
+            <>
+              <Login closeDialog={handleClose} />
+              <Box textAlign="center">
+                <Button
+                  color="primary"
+                  onClick={() => setMode(MODE.REGISTER)}
+                >
+                  Don't have an account. Register here.
+                </Button>
+              </Box>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </div>
